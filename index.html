@@ -638,7 +638,7 @@
     <nav class="nav" aria-label="Site navigation">
       <div class="nav-inner">
         <div class="brand">
-          <a class="brand-link" href="index.html" aria-label="Aberdeen Questers home">
+          <a class="brand-link" href="/" aria-label="Aberdeen Questers home">
             <span class="brand-dot" aria-hidden="true"></span>
             <span class="brand-text">
               <span>Aberdeen Questers</span>
@@ -648,13 +648,13 @@
         </div>
         <div class="nav-links">
           <div class="nav-row" aria-label="Primary navigation">
-            <a href="modern.html" id="modernLink" class="nav-cta">Modern edition</a>
+            <a href="modern/" id="modernLink" class="nav-cta">Modern edition</a>
           </div>
           <div class="nav-sub" aria-label="PDF links">
-            <a href="./assets/book.pdf" target="_blank" rel="noreferrer" class="nav-mini nav-classic"
+            <a href="./assets/book.pdf" target="_blank" rel="noopener noreferrer" class="nav-mini nav-classic"
               >Original book (PDF)</a
             >
-            <a href="./assets/modern/book.pdf" target="_blank" rel="noreferrer" class="nav-mini nav-retro"
+            <a href="./assets/modern/book.pdf" target="_blank" rel="noopener noreferrer" class="nav-mini nav-retro"
               >Modern book (PDF)</a
             >
           </div>
@@ -779,7 +779,7 @@
 
     <footer class="site-footer" aria-label="Site footer">
       Website hosting provided by
-      <a href="https://consulting.richward.org" target="_blank" rel="noreferrer">RAW Consulting</a>
+      <a href="https://consulting.richward.org" target="_blank" rel="noopener noreferrer">RAW Consulting</a>
       as a community service effort.
     </footer>
 
@@ -795,7 +795,7 @@
           window.setTimeout(() => (window.location.href = href), prefersReduced ? 0 : 360);
         }
 
-        document.getElementById("modernLink")?.addEventListener("click", (e) => goModern(e, "modern.html"));
+        document.getElementById("modernLink")?.addEventListener("click", (e) => goModern(e, "modern/"));
         const pages = [
           { title: "Front cover", src: "./assets/pages/cover-front.png" },
           ...Array.from({ length: 19 }, (_, i) => ({
