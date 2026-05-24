@@ -241,6 +241,26 @@ a {
   color: var(--muted2);
 }
 
+.site-footer {
+  max-width: 1100px;
+  margin: 28px auto 40px;
+  padding: 0 16px;
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 650;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.site-footer a {
+  color: rgba(217, 177, 93, 0.95);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(217, 177, 93, 0.45);
+}
+
+.site-footer a:hover {
+  border-bottom-color: rgba(217, 177, 93, 0.85);
+}
+
 .dialog {
   width: min(1060px, calc(100vw - 24px));
   border: 1px solid var(--border);

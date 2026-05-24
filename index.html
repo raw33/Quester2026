@@ -519,6 +519,32 @@
         touch-action: none;
       }
 
+      .page-dialog {
+        display: flex;
+        flex-direction: column;
+        max-height: min(92vh, 980px);
+        overflow: hidden;
+      }
+
+      .page-dialog .color-wrap {
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .page-dialog .canvas-stage {
+        flex: 1 1 auto;
+        min-height: 0;
+        max-height: none;
+      }
+
+      .page-dialog .color-tools {
+        overflow: auto;
+        overscroll-behavior: contain;
+      }
+
       @media (max-width: 980px) {
         .hero-inner {
           grid-template-columns: 1fr;
@@ -526,6 +552,58 @@
 
         .hero-card {
           grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .page-dialog {
+          width: 100vw;
+          max-width: 100vw;
+          height: 100dvh;
+          max-height: 100dvh;
+          border-radius: 0;
+          border-left: 0;
+          border-right: 0;
+        }
+
+        .page-dialog .dialog-header {
+          position: sticky;
+          top: 0;
+          z-index: 2;
+          flex-wrap: wrap;
+          align-items: flex-start;
+          background: rgba(250, 247, 241, 0.98);
+        }
+
+        .page-dialog .dialog-title {
+          flex: 1 1 100%;
+        }
+
+        .dialog-actions {
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
+
+        .swatches {
+          display: grid;
+          grid-template-columns: repeat(6, 1fr);
+          gap: 10px;
+          width: 100%;
+        }
+
+        .swatch {
+          width: auto;
+          height: 34px;
+          border-radius: 14px;
+        }
+
+        #brushSize,
+        #brushOpacity {
+          width: 140px;
+        }
+
+        .color-nav .page-select {
+          max-width: 100%;
         }
       }
 
@@ -698,6 +776,12 @@
         </div>
       </div>
     </dialog>
+
+    <footer class="site-footer" aria-label="Site footer">
+      Website hosting provided by
+      <a href="https://consulting.richward.org" target="_blank" rel="noreferrer">RAW Consulting</a>
+      as a community service effort.
+    </footer>
 
     <script src="https://unpkg.com/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
     <script>
@@ -1068,8 +1152,13 @@
         function fitCanvasToStage() {
           if (!canvasStage) return;
           // Responsive display size; keep aspect ratio.
-          const maxW = canvasStage.clientWidth;
-          const maxH = Math.max(420, Math.floor(window.innerHeight * 0.72));
+          const viewportH = window.visualViewport?.height || window.innerHeight;
+          const maxW = Math.max(1, canvasStage.clientWidth - 20);
+          let maxH = Math.max(1, canvasStage.clientHeight - 20);
+          if (maxH < 120) {
+            const rect = canvasStage.getBoundingClientRect();
+            maxH = Math.max(180, Math.floor(viewportH - rect.top - 16));
+          }
           const scale = Math.min(maxW / colorCanvas.width, maxH / colorCanvas.height, 1);
           colorCanvas.style.width = `${Math.floor(colorCanvas.width * scale)}px`;
           colorCanvas.style.height = `${Math.floor(colorCanvas.height * scale)}px`;

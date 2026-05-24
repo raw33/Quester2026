@@ -84,7 +84,7 @@
           <button id="colorNextBtn" class="btn" type="button" aria-label="Next page">▶</button>
         </div>
         <div id="pageDialogTitle" class="dialog-title" style="margin-left: 10px;"></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;">
+        <div class="dialog-actions">
           <button id="undoBtn" class="btn" type="button">Undo</button>
           <button id="clearBtn" class="btn" type="button">Clear</button>
           <button id="printBtn" class="btn" type="button">Print</button>
@@ -118,6 +118,12 @@
         </div>
       </div>
     </dialog>
+
+    <footer class="site-footer" aria-label="Site footer">
+      Website hosting provided by
+      <a href="https://consulting.richward.org" target="_blank" rel="noreferrer">RAW Consulting</a>
+      as a community service effort.
+    </footer>
 
     <script src="https://unpkg.com/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
     <script>
@@ -525,8 +531,13 @@
 
         function fitCanvasToStage() {
           if (!canvasStage) return;
-          const maxW = canvasStage.clientWidth - 20;
-          const maxH = Math.max(420, Math.floor(window.innerHeight * 0.72));
+          const viewportH = window.visualViewport?.height || window.innerHeight;
+          const maxW = Math.max(1, canvasStage.clientWidth - 20);
+          let maxH = Math.max(1, canvasStage.clientHeight - 20);
+          if (maxH < 120) {
+            const rect = canvasStage.getBoundingClientRect();
+            maxH = Math.max(180, Math.floor(viewportH - rect.top - 16));
+          }
           const scale = Math.min(maxW / colorCanvas.width, maxH / colorCanvas.height, 1);
           colorCanvas.style.width = `${Math.floor(colorCanvas.width * scale)}px`;
           colorCanvas.style.height = `${Math.floor(colorCanvas.height * scale)}px`;
